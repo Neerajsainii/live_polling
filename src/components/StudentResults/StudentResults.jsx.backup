@@ -1,0 +1,234 @@
+import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { Card, Input, Button } from '../ui'
+import socketService from '../../services/socketService'
+import { addChatMessage } from '../../store/pollSlice'
+import './StudentResults.css'
+
+const StudentResults = () => {
+  const dispatch = useDispatch()
+  const { currentPoll, liveResults, participants, chatMessages } = useSelector(state => state.poll)
+  const { userName, userId } = useSelector(state => state.auth)
+  const [activeTab, setActiveTab] = useState('chat')
+  const [newMessage, setNewMessage] = useState('')
+
+  // Mock data for demonstration
+  const mockPoll = {
+    id: 'poll-1',
+    question: 'Which planet is known as the Red Planet?',
+    options: ['Mars', 'Venus', 'Jupiter', 'Saturn'],
+    isActive: false
+  }
+
+  const mockResults = {
+    'Mars': 15,
+    'Venus': 1, 
+    'Jupiter': 1,
+    'Saturn': 3
+  }
+
+  const activePoll = currentPoll.id ? currentPoll : mockPoll
+  const results = Object.keys(liveResults).length > 0 ? liveResults : mockResults
+  const totalVotes = Object.values(results).reduce((sum, count) => sum + count, 0)
+  const messages = chatMessages || []
+  const participantsList = participants || []
+
+  const handleSendMessage = () => {
+    if (newMessage.trim() && userName && userId) {
+      socketService.sendMessage({
+        message: newMessage.trim(),
+        senderName: userName,
+        senderRole: 'student',
+        senderId: userId
+      })
+      setNewMessage('')
+    }
+  }
+
+  const calculatePercentage = (votes, total) => {
+    return total > 0 ? Math.round((votes / total) * 100) : 0
+  }
+
+  return (
+    <div className="student-results">
+      <div className="student-results__container">
+        <div className="student-results__header">
+          <div className="logo">
+            <span className="logo-icon">📊</span>
+            <span className="logo-text">Intervue Poll</span>
+          </div>
+          <div className="question-info">
+            <span className="question-number">Question 1</span>
+            <div className="timer-info">
+              <span className="timer-icon">⏰</span>
+              <span className="timer-text">00:15</span>
+            </div>
+          </div>
+        </div>
+
+        <Card className="results-card">
+          <div className="question-section">
+            <h2 className="question-title">Question</h2>
+            <div className="question-text">{activePoll.question}</div>
+          </div>
+
+          <div className="results-section">
+            {/* Show overall correct/incorrect statistics if available */}
+            {currentPoll.summary && (
+              <div className="results-summary">
+                <div className="summary-title">Poll Results Summary</div>
+                <div className="summary-stats">
+                  <div className="stat-item correct">
+                    <div className="stat-icon">✅</div>
+                    <div className="stat-info">
+                      <div className="stat-value">{currentPoll.summary.correctPercentage}%</div>
+                      <div className="stat-label">Got it right</div>
+                    </div>
+                  </div>
+                  <div className="stat-item incorrect">
+                    <div className="stat-icon">❌</div>
+                    <div className="stat-info">
+                      <div className="stat-value">{currentPoll.summary.incorrectPercentage}%</div>
+                      <div className="stat-label">Incorrect</div>
+                    </div>
+                  </div>
+                </div>
+                {currentPoll.summary.correctAnswer && (
+                  <div className="correct-answer-display">
+                    <div className="correct-answer-label">The correct answer was:</div>
+                    <div className="correct-answer-value">{currentPoll.summary.correctAnswer}</div>
+                  </div>
+                )}
+              </div>
+            )}
+            
+            <div className="results-visualization">
+              {activePoll.options.map((option, index) => {
+                const votes = results[option] || 0
+                const percentage = calculatePercentage(votes, totalVotes)
+                const isCorrect = currentPoll.correctAnswer === index || (currentPoll.summary?.correctAnswer === option)
+                
+                return (
+                  <div key={index} className={`result-bar ${isCorrect ? 'correct-answer' : ''}`}>
+                    <div className="result-info">
+                      <div className="result-option">
+                        <span className="option-number">{index + 1}</span>
+                        <span className="option-text">{option}</span>
+                        {isCorrect && <span className="correct-indicator">✅ Correct</span>}
+                      </div>
+                      <div className="result-stats">
+                        <span className="percentage">{percentage}%</span>
+                      </div>
+                    </div>
+                    <div className="progress-bar">
+                      <div 
+                        className={`progress-fill ${isCorrect ? 'correct' : ''}`}
+                        style={{ width: `${percentage}%` }}
+                      ></div>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+                
+                return (
+                  <div key={option} className="result-bar">
+                    <div className="result-info">
+                      <div className="result-option">
+                        <span className="option-number">{index + 1}</span>
+                        <span className="option-text">{option}</span>
+                      </div>
+                      <div className="result-percentage">{percentage}%</div>
+                    </div>
+                    <div className="progress-bar">
+                      <div 
+                        className="progress-fill"
+                        style={{ width: `${percentage}%` }}
+                      ></div>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+
+          <div className="waiting-message">
+            <p>Wait for the teacher to ask a new question..</p>
+          </div>
+        </Card>
+
+        {/* Chat sidebar - matching the mockup */}
+        <div className="chat-sidebar">
+          <Card className="chat-card" padding="md">
+            <div className="chat-header">
+              <div className="chat-tabs">
+                <button 
+                  className={`chat-tab ${activeTab === 'chat' ? 'chat-tab--active' : ''}`}
+                  onClick={() => setActiveTab('chat')}
+                >
+                  Chat
+                </button>
+                <button 
+                  className={`chat-tab ${activeTab === 'participants' ? 'chat-tab--active' : ''}`}
+                  onClick={() => setActiveTab('participants')}
+                >
+                  Participants ({participantsList.length})
+                </button>
+              </div>
+            </div>
+
+            <div className="chat-content">
+              {activeTab === 'chat' ? (
+                <div className="chat-section">
+                  <div className="chat-messages">
+                    {messages.length === 0 ? (
+                      <div className="no-messages">No messages yet. Start the conversation!</div>
+                    ) : (
+                      messages.map((message, index) => (
+                        <div key={message.id || index} className="chat-message">
+                          <div className="message-header">
+                            <span className="message-user">{message.senderName}</span>
+                            <span className="message-role">({message.senderRole})</span>
+                          </div>
+                          <div className="message-text">{message.message}</div>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                  <div className="chat-input">
+                    <Input
+                      value={newMessage}
+                      onChange={(e) => setNewMessage(e.target.value)}
+                      placeholder="Type your message..."
+                      onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+                    />
+                    <Button
+                      variant="primary"
+                      onClick={handleSendMessage}
+                      disabled={!newMessage.trim()}
+                    >
+                      Send
+                    </Button>
+                  </div>
+                </div>
+              ) : (
+                <div className="participants-section">
+                  <div className="participants-list">
+                    {participantsList.map((participant, index) => (
+                      <div key={participant.id || index} className="participant-item">
+                        <div className="participant-name">{participant.name}</div>
+                        <div className="participant-role">{participant.role}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </Card>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default StudentResults

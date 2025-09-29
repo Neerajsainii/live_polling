@@ -1,0 +1,108 @@
+.app {
+  min-height: 100vh;
+}
+
+/* Waiting Screen */
+.waiting-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-secondary);
+}
+
+.waiting-content {
+  text-align: center;
+  max-width: 400px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-xl);
+}
+
+.logo-icon {
+  font-size: var(--font-size-lg);
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, var(--primary-gradient-start), var(--primary-gradient-end));
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-text {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: var(--radius-full);
+  animation: spin 1s linear infinite;
+  margin: var(--space-xl) auto;
+}
+
+.waiting-content h2 {
+  font-size: var(--font-size-xl);
+  color: var(--text-primary);
+  margin-top: var(--space-lg);
+}
+
+/* Poll Active Screen */
+.poll-active-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-secondary);
+}
+
+.poll-content {
+  text-align: center;
+  max-width: 500px;
+}
+
+.poll-content h2 {
+  font-size: var(--font-size-2xl);
+  color: var(--text-primary);
+  margin-bottom: var(--space-md);
+}
+
+.poll-content p {
+  font-size: var(--font-size-base);
+  color: var(--text-secondary);
+}
+
+/* Results Screen */
+.results-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-secondary);
+}
+
+.results-content {
+  text-align: center;
+  max-width: 500px;
+}
+
+.results-content h2 {
+  font-size: var(--font-size-2xl);
+  color: var(--text-primary);
+  margin-bottom: var(--space-md);
+}
+
+.results-content p {
+  font-size: var(--font-size-base);
+  color: var(--text-secondary);
+}

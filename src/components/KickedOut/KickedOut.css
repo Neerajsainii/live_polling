@@ -1,0 +1,116 @@
+.kicked-out {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-secondary);
+  padding: var(--space-lg);
+}
+
+.kicked-out__container {
+  max-width: 500px;
+  width: 100%;
+}
+
+.kicked-out__content {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3xl);
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2xl);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+}
+
+.logo-icon {
+  font-size: var(--font-size-lg);
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, var(--primary-gradient-start), var(--primary-gradient-end));
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-text {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+}
+
+.kicked-out__message {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  max-width: 400px;
+}
+
+.kicked-out__title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.kicked-out__subtitle {
+  font-size: var(--font-size-base);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.kicked-out__actions {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.return-home-btn {
+  min-width: 200px;
+  padding: var(--space-md) var(--space-xl);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .kicked-out {
+    padding: var(--space-md);
+  }
+  
+  .kicked-out__content {
+    padding: var(--space-2xl);
+  }
+  
+  .kicked-out__title {
+    font-size: var(--font-size-xl);
+  }
+  
+  .kicked-out__subtitle {
+    font-size: var(--font-size-sm);
+  }
+}
+
+@media (max-width: 480px) {
+  .kicked-out__content {
+    padding: var(--space-xl);
+    gap: var(--space-xl);
+  }
+  
+  .kicked-out__title {
+    font-size: var(--font-size-lg);
+  }
+  
+  .return-home-btn {
+    min-width: auto;
+    width: 100%;
+  }
+}

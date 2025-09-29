@@ -1,0 +1,242 @@
+.teacher-setup {
+  min-height: 100vh;
+  background: var(--bg-secondary);
+  padding: var(--space-lg);
+}
+
+.teacher-setup__container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.teacher-setup__header {
+  text-align: center;
+  margin-bottom: var(--space-2xl);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+}
+
+.logo-icon {
+  font-size: var(--font-size-lg);
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, var(--primary-gradient-start), var(--primary-gradient-end));
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-text {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+}
+
+.teacher-setup__title {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+  margin-bottom: var(--space-md);
+}
+
+.teacher-setup__subtitle {
+  font-size: var(--font-size-base);
+  color: var(--text-secondary);
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.poll-form-card {
+  padding: var(--space-2xl);
+}
+
+.form-section {
+  margin-bottom: var(--space-2xl);
+}
+
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-md);
+}
+
+.form-header h2 {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+}
+
+.duration-selector {
+  position: relative;
+}
+
+.duration-select {
+  padding: var(--space-xs) var(--space-sm);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--white);
+  color: var(--text-primary);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+}
+
+.duration-select:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.question-input {
+  width: 100%;
+  padding: var(--space-md);
+  font-size: var(--font-size-base);
+  border-radius: var(--radius-md);
+  background: var(--neutral-light);
+  border: 1px solid var(--border);
+}
+
+.options-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-lg);
+}
+
+.options-header h3 {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+}
+
+.correct-answer-label {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+.option-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+  padding: var(--space-md);
+  background: var(--white);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+}
+
+.option-content {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex: 1;
+}
+
+.option-number {
+  width: 24px;
+  height: 24px;
+  background: var(--primary);
+  color: var(--white);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  flex-shrink: 0;
+}
+
+.option-input {
+  flex: 1;
+}
+
+.option-controls {
+  display: flex;
+  align-items: center;
+}
+
+.correct-toggle {
+  display: flex;
+  gap: var(--space-md);
+}
+
+.correct-toggle label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: var(--font-size-sm);
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.radio-input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--primary);
+}
+
+.radio-label {
+  font-size: var(--font-size-sm);
+  color: var(--text-primary);
+}
+
+.error-text {
+  color: var(--error);
+  font-size: var(--font-size-sm);
+  display: block;
+  margin-top: var(--space-xs);
+}
+
+.add-option-btn {
+  margin-top: var(--space-md);
+}
+
+.form-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-2xl);
+}
+
+.ask-question-btn {
+  min-width: 200px;
+  padding: var(--space-md) var(--space-2xl);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .teacher-setup {
+    padding: var(--space-md);
+  }
+  
+  .poll-form-card {
+    padding: var(--space-lg);
+  }
+  
+  .form-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-sm);
+  }
+  
+  .option-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-sm);
+  }
+  
+  .option-content {
+    width: 100%;
+  }
+  
+  .option-controls {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
