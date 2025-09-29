@@ -13,7 +13,7 @@ import { setCurrentView } from './uiSlice';
 export const socketMiddleware = (store) => (next) => (action) => {
   const result = next(action);
   
-  // Initialize socket listeners after login
+  // Initialize socket listeners after login (skip in production)
   if (action.type === 'auth/login') {
     const socket = socketService.connect();
     

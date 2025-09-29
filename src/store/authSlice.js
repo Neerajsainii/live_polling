@@ -32,14 +32,19 @@ export const authSlice = createSlice({
       state.isKickedOut = false;
       state.kickReason = '';
       
-      // Connect to socket and join appropriate room
-      socketService.connect();
-      if (role === 'teacher') {
-        socketService.joinAsTeacher({ teacherId: state.userId, teacherName: name });
-      } else if (role === 'student') {
-        socketService.joinAsParticipant({ studentId: state.userId, studentName: name });
+      // Connect to socket and join appropriate room (only in development)
+      const socket = socketService.connect();
+      if (socket) {
+        if (role === 'teacher') {
+          socketService.joinAsTeacher({ teacherId: state.userId, teacherName: name });
+        } else if (role === 'student') {
+          socketService.joinAsParticipant({ studentId: state.userId, studentName: name });
+        }
+        state.isConnected = true;
+      } else {
+        // In production, we don't have real-time features
+        state.isConnected = false;
       }
-      state.isConnected = true;
     },
     logout: (state) => {
       socketService.disconnect();

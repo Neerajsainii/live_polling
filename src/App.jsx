@@ -15,12 +15,14 @@ function App() {
   const { currentView } = useSelector(state => state.ui)
   const { userRole, isKickedOut } = useSelector(state => state.auth)
 
+  // Debug logging
+  console.log('App render:', { currentView, userRole, isKickedOut });
+
   // If user is kicked out, show kicked out screen
   if (isKickedOut) {
     return (
       <div className="app">
         <KickedOut />
-        {process.env.NODE_ENV === 'development' && <DevNavigation />}
       </div>
     )
   }

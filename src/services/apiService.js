@@ -2,6 +2,14 @@
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001/api';
 
+// Debug logging
+console.log('Environment variables:', {
+  VITE_API_BASE_URL: import.meta.env.VITE_API_BASE_URL,
+  VITE_SOCKET_URL: import.meta.env.VITE_SOCKET_URL,
+  VITE_APP_ENV: import.meta.env.VITE_APP_ENV,
+  API_BASE_URL: API_BASE_URL
+});
+
 class ApiService {
   async request(endpoint, options = {}) {
     const url = `${API_BASE_URL}${endpoint}`;
