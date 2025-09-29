@@ -7,9 +7,17 @@ class SocketService {
   constructor() {
     this.socket = null;
     this.isConnected = false;
+    this.isProduction = import.meta.env.VITE_APP_ENV === 'production';
   }
 
   connect() {
+    // Skip socket connection in production (serverless doesn't support persistent connections)
+    if (this.isProduction) {
+      console.log('⚠️ Socket.io disabled in production (serverless environment)');
+      this.isConnected = false;
+      return null;
+    }
+
     if (!this.socket) {
       this.socket = io(SOCKET_URL, {
         transports: ['websocket', 'polling'],
